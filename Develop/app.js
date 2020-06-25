@@ -9,12 +9,13 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+
 function promptUser() {
     return inquirer.prompt(
-        [{
+        [
+            {
                 type: 'input',
                 name: 'name',
                 message: 'What is your name?'
@@ -38,13 +39,17 @@ function promptUser() {
                         {name: 'Manager'},
                         {name: 'Engineer'},
                         {name: 'Intern'}
-                ],
+                ]
+                
             },
         ]
     )
 }
 inqPromise = promptUser();
 inqPromise.then(function(userInput) {
+    let name = userInput.name;
+    let id = userInput.id;
+    let email = userInput.email
     if(userInput.role === 'Manager') {
         inquirer.prompt([
             {
@@ -52,7 +57,10 @@ inqPromise.then(function(userInput) {
             name: "officeNumber",
             message: "What is your officeNumber?"
             }
-        ]);
+        ]).then(function(userInput){
+            const man = new Manager(name, email, id, userInput.officeNumber);
+            console.log(man);
+        })
     }else if(userInput.role === 'Engineer') {
         inquirer.prompt([
         {
@@ -60,7 +68,10 @@ inqPromise.then(function(userInput) {
             name: "github",
             message: "What is your github user name?"
             }
-        ]);
+        ]).then(function(userInput){
+            const eng = new Engineer(name, email, id, userInput.github);
+            console.log(eng);
+        })
     }else{
         inquirer.prompt([
             {
@@ -68,9 +79,16 @@ inqPromise.then(function(userInput) {
                 name: "school",
                 message: "What school are you going to?"
                 }
-            ]); 
+          ]).then(function(userInput){
+            const int = new Intern(name, email, id, userInput.school)
+            console.log(int);
+          })
+           
     }
+   { 
+} 
 });
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee
