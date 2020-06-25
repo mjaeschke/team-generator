@@ -82,8 +82,7 @@ inqPromise.then(function(userInput) {
           ]).then(function(userInput){
             const int = new Intern(name, email, id, userInput.school)
             console.log(int);
-          })
-           
+          })  
     }
    { 
 } 
