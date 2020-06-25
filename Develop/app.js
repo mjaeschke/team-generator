@@ -9,14 +9,53 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-const Employee = require("./lib/Employee");
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const intern = require("./lib/Intern");``
+// const Employee = require("./lib/Employee");
+// const Manager = require("./lib/Manager");
+// const Engineer = require("./lib/Engineer");
+// const intern = require("./lib/Intern");``
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-
+function promptUser() {
+    return inquirer.prompt(
+        [{
+                type: 'input',
+                name: 'name',
+                message: 'What is your name?'
+            },
+            {
+                type: 'list',
+                name: 'role',
+                message: 'What is your role?',
+                choices: [
+                        {name: 'Manager'},
+                        {name: 'Engineer'},
+                        {name: 'Intern'}
+                ],
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: 'What is your email?'
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: 'What is your employee id?'
+            },
+            {
+                type: 'input',
+                name: 'officeNumber',
+                message: 'What is your officeNumber?'
+            },
+        ]
+    )
+}
+inqPromise = promptUser();
+inqPromise.then(function(userInput) {
+    console.log(userInput.name);
+    console.log(userInput.email);
+})
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
