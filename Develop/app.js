@@ -19,16 +19,7 @@ function promptUser() {
                 name: 'name',
                 message: 'What is your name?'
             },
-            {
-                type: 'list',
-                name: 'role',
-                message: 'What is your role?',
-                choices: [
-                        {name: 'Manager'},
-                        {name: 'Engineer'},
-                        {name: 'Intern'}
-                ],
-            },
+
             {
                 type: 'input',
                 name: 'email',
@@ -38,23 +29,52 @@ function promptUser() {
                 type: 'input',
                 name: 'id',
                 message: 'What is your employee id?'
-            },
-            {
-                type: 'input',
-                name: 'officeNumber',
-                message: 'What is your officeNumber?'
+            }, 
+             {
+                type: 'list',
+                name: 'role',
+                message: 'What is your role?',
+                choices: [
+                        {name: 'Manager'},
+                        {name: 'Engineer'},
+                        {name: 'Intern'}
+                ],
             },
         ]
     )
 }
 inqPromise = promptUser();
 inqPromise.then(function(userInput) {
-    console.log(userInput.name);
-    console.log(userInput.email);
-})
+    if(userInput.role === 'Manager') {
+        inquirer.prompt([
+            {
+            type: "input",
+            name: "officeNumber",
+            message: "What is your officeNumber?"
+            }
+        ]);
+    }else if(userInput.role === 'Engineer') {
+        inquirer.prompt([
+        {
+            type: "input",
+            name: "github",
+            message: "What is your github user name?"
+            }
+        ]);
+    }else{
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "school",
+                message: "What school are you going to?"
+                }
+            ]); 
+    }
+});
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+// generate and return a block of HTML including templated divs for each employee
+
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
