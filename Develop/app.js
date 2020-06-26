@@ -59,7 +59,14 @@ inqPromise.then(function(userInput) {
             }
         ]).then(function(userInput){
             const man = new Manager(name, id, email, userInput.officeNumber);
+            team.push(man);
             console.log(man);
+           var data = render(team);
+            fs.writeFile(outputPath,data,"utf-8",err=>{
+                if(err){
+                    throw err;
+                }
+            })
         })
     }else if(userInput.role === 'Engineer') {
         inquirer.prompt([
@@ -70,7 +77,14 @@ inqPromise.then(function(userInput) {
             }
         ]).then(function(userInput){
             const eng = new Engineer(name, email, id, userInput.github);
+            team.push(eng);
             console.log(eng);
+            var data = render(team);
+            fs.writeFile(outputPath,data,"utf-8",err=>{
+                if(err){
+                    throw err;
+                }
+            })
         })
     }else{
         inquirer.prompt([
@@ -81,11 +95,18 @@ inqPromise.then(function(userInput) {
                 }
           ]).then(function(userInput){
             const int = new Intern(name, email, id, userInput.school)
+            team.push(int);
             console.log(int);
+            var data = render(team);
+            fs.writeFile(outputPath,data,"utf-8",err=>{
+                if(err){
+                    throw err;
+                }
+            })
           })  
     }
    { 
-} 
+}
 });
 
 
